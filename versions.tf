@@ -4,7 +4,7 @@ terraform {
     organization = "datagriff"
 
     workspaces {
-      name = "azure_platform_databricks"
+      name = "learn_azure_platform_data"
     }
   }
 
