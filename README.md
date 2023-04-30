@@ -1,4 +1,4 @@
-# Azure.Platform.Data
+# Platform.Azure.Data
 
 ```file
 azure.platform
