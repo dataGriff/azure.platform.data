@@ -26,6 +26,10 @@ az account show
 ```
 
 ```bash
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/%AZURE_SUBSCRIPTION_ID%" --name "aprg-lrn-cont"
+```
+
+```bash
 terraform init
 terraform fmt
 terraform validate
@@ -39,6 +43,7 @@ terraform destroy
 
 ```bash
 terraform plan -var "region=westeurope"
+terraform apply -var "environment=development"
 ```
 
 * [Terraform Cloud](https://app.terraform.io/app/organizations)
