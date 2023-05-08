@@ -42,16 +42,16 @@ resource "azurerm_eventhub_namespace" "ehns" {
 }
 
 resource "azurerm_cosmosdb_account" "cosdbsql" {
-  name                = local.cosmos_sql_name
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  offer_type          = "Standard"
-  kind                = "GlobalDocumentDB"
+  name                      = local.cosmos_sql_name
+  location                  = azurerm_resource_group.rg.location
+  resource_group_name       = azurerm_resource_group.rg.name
+  offer_type                = "Standard"
+  kind                      = "GlobalDocumentDB"
   enable_automatic_failover = false
   enable_free_tier          = true
 
   capabilities {
-     name = "EnableServerless"
+    name = "EnableServerless"
   }
 
   consistency_policy {
@@ -64,4 +64,14 @@ resource "azurerm_cosmosdb_account" "cosdbsql" {
     location          = azurerm_resource_group.rg.location
     failover_priority = 0
   }
+}
+
+resource "azurerm_api_management" "apim" {
+  name                = "example-apim"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  publisher_name      = "dataGriff"
+  publisher_email     = "info@hungovercoders.com"
+
+  sku_name = "Consumption_0"
 }

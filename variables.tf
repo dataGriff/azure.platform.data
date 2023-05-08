@@ -58,6 +58,7 @@ locals {
   eventhub_namespace_name   = "${local.environment_shortcode}-${var.team}-ehns-${local.region_shortcode}-${var.azure_namespace}"
   databricks_workspace_name = "${local.environment_shortcode}-${var.team}-dbw-${local.region_shortcode}-${var.azure_namespace}"
   cosmos_sql_name           = "${local.environment_shortcode}-${var.domain}-cosdbsql-${local.region_shortcode}-${var.azure_namespace}"
+  apim_name                 = "${local.environment_shortcode}-${var.organisation}-apim-${local.region_shortcode}-${var.azure_namespace}"
   tags = {
     environment = var.environment
     team        = var.team
