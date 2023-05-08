@@ -15,6 +15,8 @@ azure.platform
 * Azure Storage Account Data Lake Gen 2
 * Azure Databricks
 * Azure Event Hub Namespace
+* Azure Cosmos DB Serverless SQL API
+* APIM Consumption
 
 ## Useful Scripts
 
