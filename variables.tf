@@ -51,14 +51,15 @@ variable "azure_namespace" {
 }
 
 locals {
-  region_shortcode          = (var.region == "northeurope" ? "eun" : var.region == "westeurope" ? "euw" : "unk")
-  environment_shortcode     = (var.environment == "learning" ? "lrn" : var.environment == "development" ? "dev" : var.environment == "production" ? "prd" : "unk")
-  resource_group_name       = "${local.environment_shortcode}-${var.domain}-rg"
-  storage_account_name      = "${local.environment_shortcode}${var.domain}sa${local.region_shortcode}${var.azure_namespace}"
-  eventhub_namespace_name   = "${local.environment_shortcode}-${var.team}-ehns-${local.region_shortcode}-${var.azure_namespace}"
-  databricks_workspace_name = "${local.environment_shortcode}-${var.team}-dbw-${local.region_shortcode}-${var.azure_namespace}"
-  cosmos_sql_name           = "${local.environment_shortcode}-${var.domain}-cosdbsql-${local.region_shortcode}-${var.azure_namespace}"
-  apim_name                 = "${local.environment_shortcode}-${var.organisation}-apim-${local.region_shortcode}-${var.azure_namespace}"
+  region_shortcode                  = (var.region == "northeurope" ? "eun" : var.region == "westeurope" ? "euw" : "unk")
+  environment_shortcode             = (var.environment == "learning" ? "lrn" : var.environment == "development" ? "dev" : var.environment == "production" ? "prd" : "unk")
+  resource_group_name               = "${local.environment_shortcode}-${var.domain}-rg"
+  storage_account_name              = "${local.environment_shortcode}${var.domain}sa${local.region_shortcode}${var.azure_namespace}"
+  eventhub_namespace_name           = "${local.environment_shortcode}-${var.team}-ehns-${local.region_shortcode}-${var.azure_namespace}"
+  databricks_workspace_name         = "${local.environment_shortcode}-${var.team}-dbw-${local.region_shortcode}-${var.azure_namespace}"
+  databricks_premium_workspace_name = "${local.environment_shortcode}-${var.team}-dbwp-${local.region_shortcode}-${var.azure_namespace}"
+  cosmos_sql_name                   = "${local.environment_shortcode}-${var.domain}-cosdbsql-${local.region_shortcode}-${var.azure_namespace}"
+  apim_name                         = "${local.environment_shortcode}-${var.organisation}-apim-${local.region_shortcode}-${var.azure_namespace}"
   tags = {
     environment = var.environment
     team        = var.team

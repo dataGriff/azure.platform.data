@@ -11,6 +11,15 @@ resource "azurerm_databricks_workspace" "dbw" {
   sku                 = "standard"
   tags                = local.tags
 }
+
+resource "azurerm_databricks_workspace" "dbwp" {
+  name                = local.databricks_premium_workspace_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "premium"
+  tags                = local.tags
+}
+
 resource "azurerm_storage_account" "sa" {
   name                     = local.storage_account_name
   resource_group_name      = azurerm_resource_group.rg.name
