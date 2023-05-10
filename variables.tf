@@ -57,7 +57,9 @@ locals {
   storage_account_name              = "${local.environment_shortcode}${var.domain}sa${local.region_shortcode}${var.azure_namespace}"
   eventhub_namespace_name           = "${local.environment_shortcode}-${var.team}-ehns-${local.region_shortcode}-${var.azure_namespace}"
   databricks_workspace_name         = "${local.environment_shortcode}-${var.team}-dbw-${local.region_shortcode}-${var.azure_namespace}"
+  databricks_workspace_rg           = "databricks-rg-${local.resource_group_name}"
   databricks_premium_workspace_name = "${local.environment_shortcode}-${var.team}-dbwp-${local.region_shortcode}-${var.azure_namespace}"
+  databricks_premium_workspace_rg   = "databricks-premium-rg-${local.resource_group_name}"
   cosmos_sql_name                   = "${local.environment_shortcode}-${var.domain}-cosdbsql-${local.region_shortcode}-${var.azure_namespace}"
   apim_name                         = "${local.environment_shortcode}-${var.organisation}-apim-${local.region_shortcode}-${var.azure_namespace}"
   tags = {
