@@ -62,6 +62,8 @@ locals {
   databricks_premium_workspace_rg   = "databricks-premium-rg-${local.resource_group_name}"
   cosmos_sql_name                   = "${local.environment_shortcode}-${var.domain}-cosdbsql-${local.region_shortcode}-${var.azure_namespace}"
   apim_name                         = "${local.environment_shortcode}-${var.organisation}-apim-${local.region_shortcode}-${var.azure_namespace}"
+  acr_name                          = "${local.environment_shortcode}${var.organisation}acr${local.region_shortcode}${var.azure_namespace}"
+  key_vault_name                    = "${local.environment_shortcode}-${var.domain}-kv-${local.region_shortcode}-${var.azure_namespace}"
   tags = {
     environment = var.environment
     team        = var.team

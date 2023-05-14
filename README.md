@@ -18,6 +18,8 @@ azure.platform
 * Azure Event Hub Namespace
 * Azure Cosmos DB Serverless SQL API
 * APIM Consumption
+* Azure Container Registry
+* Key Vault
 
 ## Useful Scripts
 

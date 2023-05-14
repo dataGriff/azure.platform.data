@@ -60,6 +60,7 @@ resource "azurerm_cosmosdb_account" "cosdbsql" {
   kind                      = "GlobalDocumentDB"
   enable_automatic_failover = false
   enable_free_tier          = true
+  tags                      = local.tags
 
   capabilities {
     name = "EnableServerless"
@@ -83,6 +84,27 @@ resource "azurerm_api_management" "apim" {
   resource_group_name = azurerm_resource_group.rg.name
   publisher_name      = "dataGriff"
   publisher_email     = "info@hungovercoders.com"
-
-  sku_name = "Consumption_0"
+  sku_name            = "Consumption_0"
+  tags                = local.tags
 }
+
+resource "azurerm_container_registry" "acr" {
+  name                = local.acr_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Basic"
+  admin_enabled       = false
+  tags                = local.tags
+}
+
+# resource "azurerm_key_vault" "kv" {
+#   name                        = local.key_vault_name
+#   location                    = azurerm_resource_group.rg.name
+#   resource_group_name         = azurerm_resource_group.rg.location
+#   enabled_for_disk_encryption = true
+#   tenant_id                   = data.azurerm_client_config.current.tenant_id
+#   soft_delete_retention_days  = 7
+#   purge_protection_enabled    = false
+#   sku_name                    = "standard"
+#   tags                        = local.tags
+# }
