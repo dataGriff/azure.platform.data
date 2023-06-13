@@ -65,6 +65,7 @@ locals {
   acr_name                          = "${local.environment_shortcode}${var.organisation}acr${local.region_shortcode}${var.azure_namespace}"
   key_vault_name                    = "${local.environment_shortcode}-${var.domain}-kv-${local.region_shortcode}-${var.azure_namespace}"
   data_factory_name                 = "${local.environment_shortcode}-${var.domain}-adf-${local.region_shortcode}-${var.azure_namespace}"
+  cognitive_search_name                 = "${local.environment_shortcode}-${var.domain}-cogsrch-${local.region_shortcode}-${var.azure_namespace}"
   tags = {
     environment = var.environment
     team        = var.team

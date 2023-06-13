@@ -20,6 +20,7 @@ azure.platform
 * APIM Consumption
 * Azure Container Registry
 * Key Vault
+* Data Factory
 
 ## Useful Scripts
 

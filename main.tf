@@ -125,3 +125,12 @@ resource "azurerm_data_factory" "adf" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
+
+resource "azurerm_search_service" "search" {
+  name                = local.cognitive_search_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "free"
+  replica_count       = 1
+  partition_count     = 1
+}
