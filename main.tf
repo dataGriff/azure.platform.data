@@ -124,6 +124,7 @@ resource "azurerm_data_factory" "adf" {
   name                = local.data_factory_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  tags                = local.tags
 }
 
 resource "azurerm_search_service" "search" {
@@ -133,4 +134,5 @@ resource "azurerm_search_service" "search" {
   sku                 = "free"
   replica_count       = 1
   partition_count     = 1
+  tags                = local.tags
 }
