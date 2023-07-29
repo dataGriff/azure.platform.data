@@ -78,6 +78,32 @@ resource "azurerm_cosmosdb_account" "cosdbsql" {
   }
 }
 
+resource "azurerm_cosmosdb_account" "cosdbmon" {
+  name                      = local.cosmos_mon_name
+  location                  = azurerm_resource_group.rg.location
+  resource_group_name       = azurerm_resource_group.rg.name
+  offer_type                = "Standard"
+  kind                      = "MongoDB"
+  enable_automatic_failover = false
+  enable_free_tier          = true
+  tags                      = local.tags
+
+  capabilities {
+    name = "EnableServerless"
+  }
+
+  consistency_policy {
+    consistency_level       = "BoundedStaleness"
+    max_interval_in_seconds = 300
+    max_staleness_prefix    = 100000
+  }
+
+  geo_location {
+    location          = azurerm_resource_group.rg.location
+    failover_priority = 0
+  }
+}
+
 resource "azurerm_api_management" "apim" {
   name                = local.apim_name
   location            = azurerm_resource_group.rg.location
