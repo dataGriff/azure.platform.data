@@ -85,7 +85,7 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
   offer_type                = "Standard"
   kind                      = "MongoDB"
   enable_automatic_failover = false
-  enable_free_tier          = true
+  enable_free_tier          = false
   tags                      = local.tags
 
   capabilities {
