@@ -87,16 +87,20 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
   enable_automatic_failover = false
   enable_free_tier          = false
   tags                      = local.tags
-  server_version            = "4.2"
+
 
   capabilities {
     name = "EnableServerless"
+  
   }
+
+  mongo_server_version = "4.2"
 
   consistency_policy {
     consistency_level       = "BoundedStaleness"
     max_interval_in_seconds = 300
     max_staleness_prefix    = 100000
+
   }
 
   geo_location {
