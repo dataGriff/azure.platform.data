@@ -91,7 +91,7 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
 
   capabilities {
     name = "EnableServerless"
-  
+
   }
 
   mongo_server_version = "4.2"
