@@ -202,6 +202,13 @@ resource "databricks_metastore" "metastore" {
   force_destroy = true
 }
 
+resource "databricks_metastore_assignment" "default_metastore" {
+  ##depends_on           = [databricks_metastore_data_access.metastore_data_access]
+  workspace_id = azurerm_databricks_workspace.dbwp.workspace_id
+  metastore_id = databricks_metastore.metastore.id
+  ##default_catalog_name = local.databricks_metastore_default
+}
+
 resource "databricks_metastore_data_access" "metastore_data_access" {
   depends_on   = [databricks_metastore.metastore]
   metastore_id = databricks_metastore.metastore.id
@@ -212,9 +219,4 @@ resource "databricks_metastore_data_access" "metastore_data_access" {
   is_default = true
 }
 
-resource "databricks_metastore_assignment" "default_metastore" {
-  depends_on           = [databricks_metastore_data_access.metastore_data_access]
-  workspace_id         = azurerm_databricks_workspace.dbwp.workspace_id
-  metastore_id         = databricks_metastore.metastore.id
-  default_catalog_name = local.databricks_metastore_default
-}
+
