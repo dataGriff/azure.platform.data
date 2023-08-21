@@ -12,7 +12,7 @@ azure.platform
 ## Resources Deployed
 
 * Azure Resource Group
-* Azure Storage Account Data Lake Gen 2
+* Azure Storage Account Data Lake Gen 2 with containers
 * Azure Databricks (Standard)
 * Azure Databricks (Premium)
 * Azure Event Hub Namespace
@@ -21,6 +21,11 @@ azure.platform
 * Azure Container Registry
 * Key Vault
 * Data Factory
+* Azure Cognitive Search
+* Azure Cosmos DB Serverless Mongo API
+* Databricks Unity Catalog Metastore
+* Databricks External Access Connector
+* Databricks External Location
 
 ## Useful Scripts
 

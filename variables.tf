@@ -67,6 +67,10 @@ locals {
   key_vault_name                    = "${local.environment_shortcode}-${var.domain}-kv-${local.region_shortcode}-${var.azure_namespace}"
   data_factory_name                 = "${local.environment_shortcode}-${var.domain}-adf-${local.region_shortcode}-${var.azure_namespace}"
   cognitive_search_name             = "${local.environment_shortcode}-${var.domain}-cogsrch-${local.region_shortcode}-${var.azure_namespace}"
+  databricks_external_connector     = "${local.environment_shortcode}-${var.domain}-dbexc-${local.region_shortcode}-${var.azure_namespace}"
+  databricks_metastore              = "${local.environment_shortcode}-${var.domain}-dbmet-${local.region_shortcode}-${var.azure_namespace}"
+  databricks_metastore_default      = "default"
+  databricks_metastore_access       = "${local.databricks_metastore}-access"
   tags = {
     environment = var.environment
     team        = var.team
