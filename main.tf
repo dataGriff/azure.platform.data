@@ -43,6 +43,11 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "events_container" {
   storage_account_id = azurerm_storage_account.sa.id
 }
 
+resource "azurerm_storage_data_lake_gen2_filesystem" "events_container" {
+  name               = "metastore"
+  storage_account_id = azurerm_storage_account.sa.id
+}
+
 resource "azurerm_eventhub_namespace" "ehns" {
   name                = local.eventhub_namespace_name
   location            = azurerm_resource_group.rg.location
