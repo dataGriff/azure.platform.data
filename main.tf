@@ -111,7 +111,7 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
 
   }
 
-  
+
 
   geo_location {
     location          = azurerm_resource_group.rg.location
