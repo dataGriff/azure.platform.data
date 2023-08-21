@@ -198,25 +198,43 @@ resource "databricks_metastore" "metastore" {
   storage_root = format("abfss://%s@%s.dfs.core.windows.net/",
     azurerm_storage_data_lake_gen2_filesystem.metastore_container.name,
   azurerm_storage_account.sa.name)
-  owner         = "uc admins"
   force_destroy = true
-}
-
-resource "databricks_metastore_assignment" "default_metastore" {
-  ##depends_on           = [databricks_metastore_data_access.metastore_data_access]
-  workspace_id = azurerm_databricks_workspace.dbwp.workspace_id
-  metastore_id = databricks_metastore.metastore.id
-  ##default_catalog_name = local.databricks_metastore_default
 }
 
 resource "databricks_metastore_data_access" "metastore_data_access" {
   depends_on   = [databricks_metastore.metastore]
   metastore_id = databricks_metastore.metastore.id
-  name         = local.databricks_metastore_access
+  name         = "access"
   azure_managed_identity {
     access_connector_id = azapi_resource.access_connector.id
   }
   is_default = true
 }
 
+resource "databricks_metastore_assignment" "default_metastore" {
+  depends_on           = [databricks_metastore_data_access.metastore_data_access]
+  workspace_id         = azurerm_databricks_workspace.dbwp.workspace_id
+  metastore_id         = databricks_metastore.metastore.id
+  default_catalog_name = local.databricks_metastore_default
+}
 
+resource "databricks_external_location" "lake" {
+  name = "lake"
+  url = format("abfss://%s@%s.dfs.core.windows.net/",
+    azurerm_storage_data_lake_gen2_filesystem.lake_container.name,
+  azurerm_storage_account.sa.name)
+
+  credential_name = "access"
+  comment         = "Managed by TF"
+  depends_on = [
+    databricks_metastore_assignment.default_metastore
+  ]
+  owner        = "account users"
+}
+
+resource "databricks_catalog" "catalog" {
+  depends_on   = [databricks_metastore_assignment.default_metastore]
+  metastore_id = databricks_metastore.metastore.id
+  name         = var.domain
+  owner        = "account users"
+}

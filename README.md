@@ -45,6 +45,8 @@ az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/%AZURE_SU
 az ad sp create-for-rbac --role="Owner" --scopes="/subscriptions/%AZURE_SUBSCRIPTION_ID%" --name "aprg-lrn-cont"
 ```
 
+* Needed to give aprg account admin on databricks account.
+
 ```bash
 terraform init
 terraform fmt
