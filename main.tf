@@ -43,7 +43,7 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "events_container" {
   storage_account_id = azurerm_storage_account.sa.id
 }
 
-resource "azurerm_storage_data_lake_gen2_filesystem" "events_container" {
+resource "azurerm_storage_data_lake_gen2_filesystem" "metastore_container" {
   name               = "metastore"
   storage_account_id = azurerm_storage_account.sa.id
 }
@@ -98,6 +98,9 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
     name = "EnableServerless"
 
   }
+  capabilities {
+    name = "EnableMongo"
+  }
 
   mongo_server_version = "4.2"
 
@@ -107,6 +110,8 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
     max_staleness_prefix    = 100000
 
   }
+
+  
 
   geo_location {
     location          = azurerm_resource_group.rg.location
@@ -171,4 +176,44 @@ resource "azurerm_search_service" "search" {
   replica_count       = 1
   partition_count     = 1
   tags                = local.tags
+}
+
+resource "azapi_resource" "access_connector" {
+  type      = "Microsoft.Databricks/accessConnectors@2022-04-01-preview"
+  name      = local.databricks_external_connector
+  location  = azurerm_resource_group.rg.location
+  parent_id = azurerm_resource_group.rg.id
+  identity { type = "SystemAssigned" }
+  body = jsonencode({ properties = {} })
+}
+
+resource "azurerm_role_assignment" "access_assign" {
+  scope                = azurerm_storage_account.sa.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azapi_resource.access_connector.identity[0].principal_id
+}
+
+resource "databricks_metastore" "metastore" {
+  name = local.databricks_metastore
+  storage_root = format("abfss://%s@%s.dfs.core.windows.net/",
+    azurerm_storage_data_lake_gen2_filesystem.metastore_container.name,
+  azurerm_storage_account.sa.name)
+  force_destroy = true
+}
+
+resource "databricks_metastore_data_access" "metastore_data_access" {
+  depends_on   = [databricks_metastore.metastore]
+  metastore_id = databricks_metastore.metastore.id
+  name         = local.databricks_metastore_access
+  azure_managed_identity {
+    access_connector_id = azapi_resource.access_connector.id
+  }
+  is_default = true
+}
+
+resource "databricks_metastore_assignment" "default_metastore" {
+  depends_on           = [databricks_metastore_data_access.metastore_data_access]
+  workspace_id         = azurerm_databricks_workspace.dbwp.workspace_id
+  metastore_id         = databricks_metastore.metastore.id
+  default_catalog_name = local.databricks_metastore_default
 }
