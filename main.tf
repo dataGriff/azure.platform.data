@@ -198,6 +198,7 @@ resource "databricks_metastore" "metastore" {
   storage_root = format("abfss://%s@%s.dfs.core.windows.net/",
     azurerm_storage_data_lake_gen2_filesystem.metastore_container.name,
   azurerm_storage_account.sa.name)
+  owner         = "uc admins"
   force_destroy = true
 }
 

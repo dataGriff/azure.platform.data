@@ -36,8 +36,13 @@ az account set --subscription "%AZURE_SUBSCRIPTION%"
 az account show
 ```
 
+* Ended up needing to make this owner to allow RBAC assign permissions.
+* Could scope this better of course.
+
 ```bash
 az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/%AZURE_SUBSCRIPTION_ID%" --name "aprg-lrn-cont"
+
+az ad sp create-for-rbac --role="Owner" --scopes="/subscriptions/%AZURE_SUBSCRIPTION_ID%" --name "aprg-lrn-cont"
 ```
 
 ```bash
